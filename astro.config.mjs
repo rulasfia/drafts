@@ -12,4 +12,10 @@ export default defineConfig({
 			enabled: true,
 		},
 	}),
+	markdown: {
+		syntaxHighlight: "shiki",
+		shikiConfig: {
+			theme: "rose-pine",
+		},
+	},
 });

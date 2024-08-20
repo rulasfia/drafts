@@ -19,12 +19,14 @@
     "@astrojs/cloudflare": "^11.0.4",
     "@astrojs/tailwind": "^5.1.0",
     "@octokit/core": "^6.1.2",
+    "@shikijs/markdown-it": "^1.14.1",
     "astro": "^4.14.2",
     "drizzle-orm": "^0.33.0",
-    "marked": "^14.0.0"
+    "markdown-it": "^14.1.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.14",
+    "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.4.1",
     "better-sqlite3": "^11.1.2",
     "cross-env": "^7.0.3",

@@ -1,5 +1,6 @@
 ---
-import { marked } from "marked";
+import markdownit from "markdown-it";
+import Shiki from "@shikijs/markdown-it";
 import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
 import { contents } from "../schema";
@@ -31,7 +32,11 @@ const assets = await Promise.all(
 	})
 );
 
-const content = await marked.parse(path[0].body);
+// const content = await marked.parse(path[0].body);
+const md = markdownit();
+md.use(await Shiki({ theme: "rose-pine" }));
+
+const content = md.render(path[0].body);
 
 // replace matches (including start & end characters) with the actual asset URL
 const contentAfter = content.replace(regex, () => {
@@ -42,7 +47,7 @@ const contentAfter = content.replace(regex, () => {
 
 <MainLayout>
 	<div class="container mx-auto py-12">
-		<h1 class="text-4xl text-center font-bold">
+		<h1 class="text-4xl text-center font-bold text-balance">
 			{path[0].title.replace(".md", "")}
 		</h1>
 		<p class="text-center dark:text-neutral-300 text-neutral-600 mb-12 mt-4">
