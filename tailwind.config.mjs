@@ -10,12 +10,6 @@ export default {
 				sans: ["Geist", ...defaultTheme.fontFamily.sans],
 				mono: ["Geist Mono", ...defaultTheme.fontFamily.mono],
 			},
-			colors: {
-				transparent: "transparent",
-				current: "currentColor",
-				gray: color.neutral,
-				...color,
-			},
 		},
 	},
 	plugins: [typography],
