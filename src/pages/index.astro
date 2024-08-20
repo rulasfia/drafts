@@ -21,7 +21,7 @@ const dbRes = await drizzle(env.DB)
 <MainLayout>
 	<div class="container mx-auto py-9 max-w-[65ch] w-full">
 		<h1 class="text-3xl font-bold text-center">Drafts</h1>
-		<p class="text-center text-gray-800 font-medium">By Khoirul Asfian</p>
+		<p class="text-center text-neutral-800 font-medium">By Khoirul Asfian</p>
 		<div class="grid grid-cols-1 gap-4 mt-8">
 			{
 				dbRes.map((entry) => (
@@ -29,8 +29,8 @@ const dbRes = await drizzle(env.DB)
 						href={`/${entry.slug}`}
 						class="flex flex-row justify-between border-b-2 border-solid border-transparent hover:border-orange-400"
 					>
-						<span>{entry.title}</span>
-						<span>
+						<span class="lg:text-lg font-medium">{entry.title}</span>
+						<span class="text-neutral-500 dark:text-neutral-400">
 							{new Date(entry.created).toLocaleDateString("en-GB", {
 								month: "long",
 								day: "2-digit",
