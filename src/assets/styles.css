@@ -1,0 +1,24 @@
+/* Geist */
+@font-face {
+	font-family: "Geist";
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+	src: url("./fonts/GeistVariableVF.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Geist Mono";
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+	src: url("./fonts/GeistMonoVariableVF.woff2") format("woff2");
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	@apply caret-orange-500 decoration-orange-500 accent-orange-500;
+}

@@ -15,14 +15,16 @@ if (inputSecret !== env.SECRET) {
 const res = await getAllContent(env.GITHUB_PAT);
 const dbRes = await drizzle(env.DB).select().from(contents);
 
-const data = res.entries.map((entry) => {
-	const existing = dbRes.find((item) => item.path === entry.path);
-	return {
-		name: entry.name,
-		path: entry.path,
-		status: existing?.status ?? "private",
-	};
-});
+const data = res.entries
+	.filter((entry) => entry.name.includes(".md"))
+	.map((entry) => {
+		const existing = dbRes.find((item) => item.path === entry.path);
+		return {
+			name: entry.name,
+			path: entry.path,
+			status: existing?.status ?? "private",
+		};
+	});
 ---
 
 <MainLayout>
