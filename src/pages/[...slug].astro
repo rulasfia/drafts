@@ -18,7 +18,7 @@ const path = await drizzle(env.DB)
 // const res = await getContent(env.GITHUB_PAT, encodeURI(path[0].path));
 // if (!res) return { status: 404 };
 
-if (path.length !== 1) return { status: 404 };
+if (path.length !== 1) return new Response(null, { status: 404 });
 
 // const raw = await fetch(res.download_url);
 // if (!raw.ok) return { status: raw.status };
