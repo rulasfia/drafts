@@ -45,7 +45,7 @@ const contentAfter = content.replace(regex, () => {
 		<h1 class="text-4xl text-center font-bold">
 			{path[0].title.replace(".md", "")}
 		</h1>
-		<p class="text-center text-gray-600 mb-12 mt-4">
+		<p class="text-center dark:text-neutral-300 text-neutral-600 mb-12 mt-4">
 			{
 				new Date(path[0].created).toLocaleDateString("en-GB", {
 					month: "long",
@@ -55,7 +55,7 @@ const contentAfter = content.replace(regex, () => {
 			}
 		</p>
 		<article
-			class="prose mx-auto lg:prose-lg prose-img:mb-2 prose-img:rounded-lg prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl"
+			class="prose mx-auto prose-neutral dark:prose-invert lg:prose-lg prose-img:mb-2 prose-img:mt-4 prose-img:rounded-lg prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl"
 			set:html={contentAfter}
 		/>
 	</div>
