@@ -27,6 +27,23 @@ export async function getAllContent(token: string) {
 	return response.data as EntryResponse & { entries: EntryResponse[] };
 }
 
+export async function getAllAssets(token: string) {
+	const response = await octokit(token).request(
+		"GET /repos/rulasfia/notes.md/contents/Works/assets",
+		{
+			owner: "rulasfia",
+			repo: "notes.md",
+			path: "Works/assets",
+			headers: {
+				"X-GitHub-Api-Version": "2022-11-28",
+				accept: "application/vnd.github.v3.object",
+			},
+		}
+	);
+
+	return response.data as EntryResponse & { entries: EntryResponse[] };
+}
+
 export async function getContent(token: string, path: string) {
 	const response = await octokit(token).request(
 		`GET /repos/rulasfia/notes.md/contents/${path}`,

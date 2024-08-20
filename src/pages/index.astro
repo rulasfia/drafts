@@ -29,8 +29,8 @@ const dbRes = await drizzle(env.DB)
 						href={`/${entry.slug}`}
 						class="flex flex-row justify-between border-b-2 border-solid border-transparent hover:border-orange-400"
 					>
-						<span>{entry.title}</span>
-						<span>
+						<span class="lg:text-lg font-medium">{entry.title}</span>
+						<span class="text-gray-500">
 							{new Date(entry.created).toLocaleDateString("en-GB", {
 								month: "long",
 								day: "2-digit",
