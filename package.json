@@ -1,0 +1,38 @@
+{
+  "name": "drafts",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "wrangler types && astro dev",
+    "start": "wrangler types && astro dev",
+    "build": "wrangler types && astro check && astro build",
+    "preview": "wrangler types && astro preview",
+    "astro": "astro",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply drafts-db --local",
+    "db:migrate:prod": "wrangler d1 migrations apply drafts-db --remote",
+    "db:studio:local": "LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio",
+    "db:studio:prod": "source .drizzle.env && DB_ID='94398331-231b-4d8f-8f4a-06509ec498bd' drizzle-kit studio"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.3",
+    "@astrojs/cloudflare": "^11.0.4",
+    "@astrojs/tailwind": "^5.1.0",
+    "@octokit/core": "^6.1.2",
+    "astro": "^4.14.2",
+    "drizzle-orm": "^0.33.0",
+    "marked": "^14.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.14",
+    "@types/node": "^22.4.1",
+    "better-sqlite3": "^11.1.2",
+    "cross-env": "^7.0.3",
+    "drizzle-kit": "^0.24.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "tailwindcss": "^3.4.10",
+    "typescript": "^5.5.4",
+    "wrangler": "^3.72.0"
+  }
+}

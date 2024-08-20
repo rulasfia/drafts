@@ -1,0 +1,63 @@
+---
+import MainLayout from "../layouts/main-layout.astro";
+import { drizzle } from "drizzle-orm/d1";
+import { contents } from "../schema";
+import { getAllContent } from "../utils/query";
+
+const { env } = Astro.locals.runtime;
+
+// check for secret
+const inputSecret = new URL(Astro.request.url).searchParams.get("pass");
+if (inputSecret !== env.SECRET) {
+	return new Response(null, { status: 404 });
+}
+
+const res = await getAllContent(env.GITHUB_PAT);
+const dbRes = await drizzle(env.DB).select().from(contents);
+
+const data = res.entries.map((entry) => {
+	const existing = dbRes.find((item) => item.path === entry.path);
+	return {
+		name: entry.name,
+		path: entry.path,
+		status: existing?.status ?? "private",
+	};
+});
+---
+
+<MainLayout>
+	<div class="container mx-auto py-9 max-w-[65ch]">
+		<h1 class="text-center text-xl font-bold">Manage</h1>
+		<p class="text-center">Manage your content</p>
+
+		<div class="grid grid-cols-1 gap-4 mt-8">
+			{
+				data.map((entry) => (
+					<form
+						method="post"
+						action="/api/content"
+						class="flex flex-row justify-between items-center gap-4"
+					>
+						<span class="h-8 inline-flex items-center rounded-md w-full px-3">
+							{entry.name}
+						</span>
+
+						<input type="hidden" name="path" value={entry.path} />
+						<input
+							type="hidden"
+							name="status"
+							value={entry.status === "private" ? "public" : "private"}
+						/>
+
+						<button
+							type="submit"
+							class="bg-gradient-to-b from-orange-100 to-orange-300 font-medium text-sm px-8 h-8 inline-flex justify-center items-center rounded-lg ring-1 hover:ring-2 ring-orange-200 shadow hover:shadow-md transition-all duration-150 ease-out"
+						>
+							{entry.status === "private" ? "Publish" : "Unpublish"}
+						</button>
+					</form>
+				))
+			}
+		</div>
+	</div>
+</MainLayout>
