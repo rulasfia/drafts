@@ -20,9 +20,6 @@ importers:
       '@octokit/core':
         specifier: ^6.1.2
         version: 6.1.2
-      '@shikijs/markdown-it':
-        specifier: ^1.14.1
-        version: 1.14.1
       astro:
         specifier: ^4.14.2
         version: 4.14.2(@types/node@22.4.1)(rollup@4.21.0)(typescript@5.5.4)
@@ -33,6 +30,9 @@ importers:
         specifier: ^14.1.0
         version: 14.1.0
     devDependencies:
+      '@shikijs/markdown-it':
+        specifier: ^1.14.1
+        version: 1.14.1
       '@tailwindcss/typography':
         specifier: ^0.5.14
         version: 0.5.14(tailwindcss@3.4.10)
@@ -57,6 +57,9 @@ importers:
       prettier-plugin-tailwindcss:
         specifier: ^0.6.6
         version: 0.6.6(prettier@3.3.3)
+      shiki:
+        specifier: ^1.14.1
+        version: 1.14.1
       tailwindcss:
         specifier: ^3.4.10
         version: 3.4.10

@@ -1,6 +1,7 @@
 ---
 import markdownit from "markdown-it";
-import Shiki from "@shikijs/markdown-it";
+import { fromHighlighter } from "@shikijs/markdown-it/core";
+import { createHighlighterCore } from "shiki/core";
 import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
 import { contents } from "../schema";
@@ -32,9 +33,19 @@ const assets = await Promise.all(
 	})
 );
 
+const highlighter = await createHighlighterCore({
+	themes: [import("shiki/themes/rose-pine.mjs")],
+	langs: [
+		import("shiki/langs/javascript.mjs"),
+		import("shiki/langs/typescript.mjs"),
+	],
+	loadWasm: import("shiki/wasm"),
+});
+
 // const content = await marked.parse(path[0].body);
 const md = markdownit();
-md.use(await Shiki({ theme: "rose-pine" }));
+// @ts-expect-error invalid return type from createHighlighterCore
+md.use(fromHighlighter(highlighter, { theme: "rose-pine" }));
 
 const content = md.render(path[0].body);
 
