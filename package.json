@@ -11,17 +11,19 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply drafts-db --local",
     "db:migrate:prod": "wrangler d1 migrations apply drafts-db --remote",
-    "db:studio:local": "LOCAL_DB_PATH=$(find .wrangler/state/v3/d1/miniflare-D1DatabaseObject -type f -name '*.sqlite' -print -quit) drizzle-kit studio",
+    "db:studio:local": "cross-env LOCAL_DB_PATH=.wrangler/state/v3/d1/miniflare-D1DatabaseObject/1124cfdde1cd2631a1bfcb1f3855ee4f3d81c1b32dd7b6dbd3017facd766ba0f.sqlite drizzle-kit studio",
     "db:studio:prod": "source .drizzle.env && DB_ID='94398331-231b-4d8f-8f4a-06509ec498bd' drizzle-kit studio"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
     "@astrojs/cloudflare": "^11.0.4",
+    "@astrojs/svelte": "^5.7.0",
     "@astrojs/tailwind": "^5.1.0",
     "@octokit/core": "^6.1.2",
     "astro": "^4.14.2",
     "drizzle-orm": "^0.33.0",
-    "markdown-it": "^14.1.0"
+    "markdown-it": "^14.1.0",
+    "svelte": "^4.2.18"
   },
   "devDependencies": {
     "@shikijs/markdown-it": "^1.14.1",
