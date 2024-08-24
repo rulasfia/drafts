@@ -40,16 +40,18 @@ const contentAfter = content
 	})
 	.replace(parsedLinks.regex, () => {
 		const link = parsedLinks.matches.shift();
-		return `<a href="/${formatSlug(link ?? "")}">${link}</a>`;
+		return `<a href="/${formatSlug(link ?? "")}" data-astro-prefetch>${link}</a>`;
 	});
+
+const title = path[0].title.replace(".md", "");
 ---
 
-<MainLayout>
+<MainLayout title={`${title} | Drafts`}>
 	<div class="container mx-auto px-4 md:px-0 py-12">
 		<h1
 			class="text-4xl lg:text-5xl text-center font-heading font-bold text-balance"
 		>
-			{path[0].title.replace(".md", "")}
+			{title}
 		</h1>
 		<p class="text-center dark:text-neutral-300 text-neutral-600 mb-16 mt-4">
 			{
