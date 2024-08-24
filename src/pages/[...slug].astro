@@ -64,8 +64,27 @@ const contentAfter = content.replace(parsed.regex, () => {
 			}
 		</p>
 		<article
-			class="prose mx-auto prose-neutral dark:prose-invert lg:prose-lg prose-img:mb-2 prose-img:mt-4 prose-img:rounded-lg prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl"
+			class="prose mx-auto prose-neutral dark:prose-invert lg:prose-lg prose-img:mb-2 prose-img:mt-4 prose-img:rounded-lg prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl hover:prose-a:decoration-orange-400"
 			set:html={contentAfter}
 		/>
 	</div>
+
+	<script type="module">
+		import { codeToHtml } from "https://esm.sh/shiki@1.14.1";
+
+		const contentRef = document.querySelectorAll('code[class*="language-"]');
+		const targetRef = document.querySelectorAll("pre");
+
+		contentRef.forEach(async (code, idx) => {
+			const newElement = document.createElement("div");
+
+			newElement.innerHTML = await codeToHtml(code.innerText, {
+				lang: code.className.replace("language-", ""),
+				theme: "rose-pine",
+			});
+
+			newElement.classList.add(code.className);
+			targetRef[idx].replaceWith(newElement);
+		});
+	</script>
 </MainLayout>

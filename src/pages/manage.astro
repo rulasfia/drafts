@@ -4,6 +4,7 @@ import { drizzle } from "drizzle-orm/d1";
 import { contents } from "../schema";
 import { getAllContent } from "../utils/query";
 import UpdateContentButton from "../components/update-content-button.svelte";
+import PublishContentSwitch from "../components/publish-content-switch.svelte";
 
 const { env } = Astro.locals.runtime;
 
@@ -41,11 +42,7 @@ console.log(data);
 		<div class="grid grid-cols-1 mt-8">
 			{
 				data.map((entry) => (
-					<form
-						method="post"
-						action="/api/content"
-						class="flex flex-row justify-between items-center gap-2 px-4 py-4 border-b border-b-gray-300"
-					>
+					<form class="flex flex-row justify-between items-center gap-2 px-4 py-4 border-b border-b-gray-300">
 						<div>
 							<span class="h-8 inline-flex items-center rounded-md w-full">
 								{entry.name}
@@ -66,7 +63,7 @@ console.log(data);
 								client:load
 							/>
 
-							<button
+							{/* <button
 								type="submit"
 								class:list={[
 									"bg-gradient-to-b font-semibold text-sm px-8 h-8 w-full max-w-32  inline-flex justify-center items-center rounded-lg ring-1 hover:ring-2 shadow hover:shadow-md transition-all duration-150 ease-out dark:text-neutral-800 ",
@@ -76,7 +73,13 @@ console.log(data);
 								]}
 							>
 								{entry.status === "private" ? "Publish" : "Unpublish"}
-							</button>
+							</button> */}
+
+							<PublishContentSwitch
+								path={entry.path}
+								status={entry.status}
+								client:load
+							/>
 						</div>
 					</form>
 				))

@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from "astro";
+export const prerender = true;
+
+export const getStaticPaths = (() => {
+	console.log("getStaticPaths");
+	return [
+		{
+			params: {
+				slug: "world",
+			},
+		},
+	];
+}) satisfies GetStaticPaths;
+
+console.log("slug", Astro.params.slug);
+---
+
+<p>Hello World</p>

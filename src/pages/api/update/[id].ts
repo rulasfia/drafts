@@ -4,9 +4,17 @@ import { contents } from "../../../schema";
 import { eq } from "drizzle-orm";
 import { getContent } from "../../../utils/query";
 
-export const GET: APIRoute = async ({ locals, params }) => {
+export const GET: APIRoute = async ({ locals, params, request }) => {
 	try {
 		const { id } = params;
+
+		// check auth
+		const auth = request.headers.get("Authorization");
+		if (auth !== locals.runtime.env.SECRET) {
+			return new Response(JSON.stringify({ msg: "unauthorized" }), {
+				status: 401,
+			});
+		}
 
 		// make sure the id is available
 		if (!id) {

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { fly } from "svelte/transition";
+
 	export let id: number | null;
 	export let status: "private" | "public";
 
@@ -26,5 +28,9 @@
 	type="button"
 	class="bg-gradient-to-b from-zinc-100 to-zinc-300 font-semibold text-sm px-8 h-8 w-full max-w-32 inline-flex justify-center items-center rounded-lg ring-1 hover:ring-2 ring-zinc-200 shadow hover:shadow-md transition-all duration-150 ease-out dark:text-neutral-800 dark:from-zinc-300 dark:to-zinc-500 dark:ring-zinc-400 disabled:cursor-not-allowed disabled:opacity-50"
 >
-	{isUpdating ? "..." : "Update"}
+	{#if isUpdating}
+		<span in:fly={{ y: 20, duration: 200 }}>...</span>
+	{:else}
+		<span in:fly={{ y: 20, duration: 200 }}>Update</span>
+	{/if}
 </button>

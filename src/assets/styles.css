@@ -17,6 +17,14 @@
 }
 
 @font-face {
+	font-family: "Geist";
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+	src: url("./fonts/Atkinson-Hyperlegible-Italic.woff2") format("woff2");
+}
+
+@font-face {
 	font-family: "Geist Mono";
 	font-weight: 400 700;
 	font-style: normal;
