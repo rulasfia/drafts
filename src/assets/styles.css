@@ -1,3 +1,12 @@
+/* playfair */
+@font-face {
+	font-family: "Playfair Display";
+	font-weight: 700;
+	font-style: normal;
+	font-display: fallback;
+	src: url("./fonts/PlayfairDisplay-Bold.woff2") format("woff2");
+}
+
 /* Geist */
 @font-face {
 	font-family: "Geist";
@@ -5,6 +14,14 @@
 	font-style: normal;
 	font-display: swap;
 	src: url("./fonts/GeistVariableVF.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Geist";
+	font-weight: 400;
+	font-style: italic;
+	font-display: swap;
+	src: url("./fonts/Atkinson-Hyperlegible-Italic.woff2") format("woff2");
 }
 
 @font-face {

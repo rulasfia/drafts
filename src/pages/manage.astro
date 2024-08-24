@@ -3,6 +3,8 @@ import MainLayout from "../layouts/main-layout.astro";
 import { drizzle } from "drizzle-orm/d1";
 import { contents } from "../schema";
 import { getAllContent } from "../utils/query";
+import UpdateContentButton from "../components/update-content-button.svelte";
+import PublishContentSwitch from "../components/publish-content-switch.svelte";
 
 const { env } = Astro.locals.runtime;
 
@@ -20,6 +22,7 @@ const data = res.entries
 	.map((entry) => {
 		const existing = dbRes.find((item) => item.path === entry.path);
 		return {
+			id: existing?.id ?? null,
 			name: entry.name,
 			path: entry.path,
 			status: existing?.status ?? "private",
@@ -28,21 +31,21 @@ const data = res.entries
 ---
 
 <MainLayout>
-	<div class="container mx-auto py-9 max-w-[65ch]">
-		<h1 class="text-center text-xl font-bold">Manage</h1>
+	<div class="container mx-auto px-4 md:px-0 py-9 max-w-[65ch]">
+		<h1 class="text-center font-heading text-3xl lg:text-4xl font-bold">
+			Manage
+		</h1>
 		<p class="text-center">Manage your content</p>
 
-		<div class="grid grid-cols-1 gap-4 mt-8">
+		<div class="grid grid-cols-1 mt-8">
 			{
 				data.map((entry) => (
-					<form
-						method="post"
-						action="/api/content"
-						class="flex flex-row justify-between items-center gap-4"
-					>
-						<span class="h-8 inline-flex items-center rounded-md w-full px-3">
-							{entry.name}
-						</span>
+					<form class="flex flex-row justify-between items-center gap-2 px-4 py-4 border-b border-b-gray-300">
+						<div>
+							<span class="h-8 inline-flex items-center rounded-md w-full">
+								{entry.name}
+							</span>
+						</div>
 
 						<input type="hidden" name="path" value={entry.path} />
 						<input
@@ -51,12 +54,19 @@ const data = res.entries
 							value={entry.status === "private" ? "public" : "private"}
 						/>
 
-						<button
-							type="submit"
-							class="bg-gradient-to-b from-orange-100 to-orange-300 font-semibold text-sm px-8 h-8 inline-flex justify-center items-center rounded-lg ring-1 hover:ring-2 ring-orange-200 shadow hover:shadow-md transition-all duration-150 ease-out dark:text-neutral-800 dark:from-orange-300 dark:to-orange-600 dark:ring-orange-500"
-						>
-							{entry.status === "private" ? "Publish" : "Unpublish"}
-						</button>
+						<div class="flex flex-row gap-4 items-center justify-end flex-1">
+							<UpdateContentButton
+								id={entry.id}
+								status={entry.status}
+								client:load
+							/>
+
+							<PublishContentSwitch
+								path={entry.path}
+								status={entry.status}
+								client:load
+							/>
+						</div>
 					</form>
 				))
 			}
