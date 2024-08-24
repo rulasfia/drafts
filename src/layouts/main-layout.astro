@@ -1,5 +1,7 @@
 ---
 import "../assets/styles.css";
+
+const { title } = Astro.props;
 ---
 
 <html lang="en">
@@ -8,11 +10,18 @@ import "../assets/styles.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Drafts | Khoirul Asfian</title>
+		<title>{title ?? "Drafts | Khoirul Asfian"}</title>
 	</head>
 	<body
 		class="text-neutral-900 bg-neutral-50 font-sans antialiased dark:bg-neutral-800 dark:text-neutral-50"
 	>
 		<slot />
 	</body>
+
+	<!-- Cloudflare Web Analytics -->
+	<script
+		defer
+		src="https://static.cloudflareinsights.com/beacon.min.js"
+		data-cf-beacon='{"token": "16fba978d699484a9e76666c87f6bb55"}'
+	></script><!-- End Cloudflare Web Analytics -->
 </html>
