@@ -4,8 +4,9 @@ import { drizzle } from "drizzle-orm/d1";
 import { eq } from "drizzle-orm";
 import { contents } from "../schema";
 import { getContent } from "../utils/query";
-import { parseImages } from "../utils/formatString";
+import { parseImages, parseInternalLink } from "../utils/formatString";
 import MainLayout from "../layouts/main-layout.astro";
+import { formatSlug } from "../utils/formatString";
 
 const { env } = Astro.locals.runtime;
 
@@ -19,32 +20,28 @@ const path = await drizzle(env.DB)
 
 if (path.length !== 1) return new Response(null, { status: 404 });
 
-// const startChar = "!\\[\\["; // Escape the ![[ characters
-// const endChar = "\\]\\]"; // Escape the ]] characters
-
-// const regex = new RegExp(`${startChar}(.*?)${endChar}`, "g");
-// const matches = path[0].body.match(regex)?.map((m) => m.slice(3, -2)) ?? [];
-
-const parsed = parseImages(path[0].body);
+const parsedImgs = parseImages(path[0].body);
+const parsedLinks = parseInternalLink(path[0].body);
 
 const assets = await Promise.all(
-	parsed.matches.map(async (match) => {
+	parsedImgs.matches.map(async (match) => {
 		const res = await getContent(env.GITHUB_PAT, `Works/assets/${match}`);
 		return res.download_url;
 	})
 );
 
-// const content = await marked.parse(path[0].body);
 const md = markdownit();
-// md.use(fromHighlighter(highlighter, { theme: "rose-pine" }));
-
 const content = md.render(path[0].body);
 
-// replace matches (including start & end characters) with the actual asset URL
-const contentAfter = content.replace(parsed.regex, () => {
-	const asset = assets.shift();
-	return `<img src="${asset}" />`;
-});
+const contentAfter = content
+	.replace(parsedImgs.regex, () => {
+		const asset = assets.shift();
+		return `<img src="${asset}" />`;
+	})
+	.replace(parsedLinks.regex, () => {
+		const link = parsedLinks.matches.shift();
+		return `<a href="/${formatSlug(link ?? "")}">${link}</a>`;
+	});
 ---
 
 <MainLayout>
@@ -58,7 +55,6 @@ const contentAfter = content.replace(parsed.regex, () => {
 			{
 				new Date(path[0].created).toLocaleDateString("en-GB", {
 					month: "long",
-					day: "2-digit",
 					year: "numeric",
 				})
 			}

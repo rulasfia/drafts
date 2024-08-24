@@ -15,3 +15,13 @@ export function parseImages(body: string) {
 
 	return { matches, regex };
 }
+
+export function parseInternalLink(body: string) {
+	const startChar = "\\[\\["; // Escape the ![[ characters
+	const endChar = "\\]\\]"; // Escape the ]] characters
+
+	const regex = new RegExp(`${startChar}(.*?)${endChar}`, "g");
+	const matches = body.match(regex)?.map((m) => m.slice(2, -2)) ?? [];
+
+	return { matches, regex };
+}

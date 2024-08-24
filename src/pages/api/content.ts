@@ -18,7 +18,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
 		const data = await request.formData();
 		const path = data.get("path");
 
-		console.log({ data });
 		// Validate the data - you'll probably want to do more than this
 		if (!path) {
 			return new Response(JSON.stringify({ msg: "invalid params" }), {

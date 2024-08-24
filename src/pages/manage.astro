@@ -28,8 +28,6 @@ const data = res.entries
 			status: existing?.status ?? "private",
 		};
 	});
-
-console.log(data);
 ---
 
 <MainLayout>
@@ -62,18 +60,6 @@ console.log(data);
 								status={entry.status}
 								client:load
 							/>
-
-							{/* <button
-								type="submit"
-								class:list={[
-									"bg-gradient-to-b font-semibold text-sm px-8 h-8 w-full max-w-32  inline-flex justify-center items-center rounded-lg ring-1 hover:ring-2 shadow hover:shadow-md transition-all duration-150 ease-out dark:text-neutral-800 ",
-									entry.status === "private"
-										? "from-orange-100 to-orange-300 dark:from-orange-300 dark:to-orange-600 dark:ring-orange-500 ring-orange-200 shadow-orange-400/50"
-										: "from-zinc-100 to-zinc-300 dark:from-zinc-300 dark:to-zinc-600 dark:ring-zinc-500 ring-zinc-200 shadow-zinc-400/50",
-								]}
-							>
-								{entry.status === "private" ? "Publish" : "Unpublish"}
-							</button> */}
 
 							<PublishContentSwitch
 								path={entry.path}

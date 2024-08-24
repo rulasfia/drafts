@@ -21,7 +21,6 @@
 			body: payload,
 		});
 
-		console.log(res);
 		localStatus = localStatus === "private" ? "public" : "private";
 		isUpdating = false;
 	}

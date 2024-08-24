@@ -16,7 +16,6 @@
 			headers: { Authorization: key },
 		});
 
-		console.log(res);
 		isUpdating = false;
 	}
 </script>
