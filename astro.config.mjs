@@ -6,17 +6,12 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), svelte()],
-  output: "server",
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true
-    }
-  }),
-  markdown: {
-    syntaxHighlight: "shiki",
-    shikiConfig: {
-      theme: "rose-pine"
-    }
-  }
+	integrations: [tailwind(), svelte()],
+	output: "server",
+	prefetch: true,
+	adapter: cloudflare({
+		platformProxy: {
+			enabled: true,
+		},
+	}),
 });

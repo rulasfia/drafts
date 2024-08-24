@@ -40,7 +40,7 @@ const contentAfter = content
 	})
 	.replace(parsedLinks.regex, () => {
 		const link = parsedLinks.matches.shift();
-		return `<a href="/${formatSlug(link ?? "")}">${link}</a>`;
+		return `<a href="/${formatSlug(link ?? "")}" data-astro-prefetch>${link}</a>`;
 	});
 
 const title = path[0].title.replace(".md", "");
