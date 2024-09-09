@@ -25,7 +25,7 @@
 	name={`update-content-${id}`}
 	disabled={status === "private" || isUpdating}
 	type="button"
-	class="bg-gradient-to-b from-zinc-100 to-zinc-300 font-semibold text-sm px-8 h-8 w-full max-w-32 inline-flex justify-center items-center rounded-lg ring-1 hover:ring-2 ring-zinc-200 shadow hover:shadow-md transition-all duration-150 ease-out dark:text-neutral-800 dark:from-zinc-300 dark:to-zinc-500 dark:ring-zinc-400 disabled:cursor-not-allowed disabled:opacity-50"
+	class="bg-gradient-to-b from-neutral-100 to-neutral-300 font-semibold text-sm px-8 h-8 w-full max-w-32 inline-flex justify-center items-center rounded-lg ring-1 hover:ring-2 ring-neutral-200 shadow hover:shadow-md transition-all duration-150 ease-out dark:text-neutral-800 dark:from-neutral-300 dark:to-neutral-500 dark:ring-neutral-400 disabled:cursor-not-allowed disabled:opacity-50"
 >
 	{#if isUpdating}
 		<span in:fly={{ y: 20, duration: 200 }}>...</span>
