@@ -1,21 +1,14 @@
 ---
-import { drizzle } from "drizzle-orm/d1";
-import { eq } from "drizzle-orm";
 import MainLayout from "../layouts/main-layout.astro";
-import { contents } from "../schema";
+import { getCollection } from "astro:content";
 
-const { env } = Astro.locals.runtime;
-const dbRes = await drizzle(env.DB)
-	.select({
-		id: contents.id,
-		path: contents.path,
-		title: contents.title,
-		status: contents.status,
-		slug: contents.slug,
-		created: contents.created,
-	})
-	.from(contents)
-	.where(eq(contents.status, "public"));
+const blogs = await getCollection("drafts", (entry) =>
+	import.meta.env.PROD ? entry.data.published : true
+);
+
+const sortedBlogs = blogs.sort(
+	(a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
 ---
 
 <MainLayout>
@@ -26,14 +19,14 @@ const dbRes = await drizzle(env.DB)
 		<p class="text-center text-neutral-800 font-medium">By Khoirul Asfian</p>
 		<div class="grid grid-cols-1 gap-4 mt-8">
 			{
-				dbRes.map((entry) => (
+				sortedBlogs.map((entry) => (
 					<a
 						href={`/${entry.slug}`}
 						class="flex flex-row justify-between border-b-2 border-solid border-transparent hover:border-orange-400"
 					>
-						<span class="lg:text-lg font-medium">{entry.title}</span>
+						<span class="lg:text-lg font-medium">{entry.data.title}</span>
 						<span class="text-neutral-500 dark:text-neutral-400">
-							{new Date(entry.created).toLocaleDateString("en-GB", {
+							{new Date(entry.data.publishedAt).toLocaleDateString("en-GB", {
 								month: "long",
 								year: "numeric",
 							})}

@@ -1,100 +1,44 @@
 ---
-import markdownit from "markdown-it";
-import { drizzle } from "drizzle-orm/d1";
-import { eq } from "drizzle-orm";
-import { contents } from "../schema";
-import { getContent } from "../utils/query";
-import { parseImages, parseInternalLink } from "../utils/formatString";
 import MainLayout from "../layouts/main-layout.astro";
-import { formatSlug } from "../utils/formatString";
+import { getCollection } from "astro:content";
 
-const { env } = Astro.locals.runtime;
+export async function getStaticPaths() {
+	const blogs = await getCollection("drafts", (entry) =>
+		import.meta.env.PROD ? entry.data.published : true
+	);
+	return blogs.map((entry) => ({
+		params: { slug: entry.slug },
+		props: { entry },
+	}));
+}
 
-const { slug } = Astro.params;
+const { entry } = Astro.props;
 
-const path = await drizzle(env.DB)
-	.select()
-	.from(contents)
-	.where(eq(contents.slug, slug ?? ""))
-	.limit(1);
-
-if (path.length !== 1) return new Response(null, { status: 404 });
-
-const parsedImgs = parseImages(path[0].body);
-const parsedLinks = parseInternalLink(path[0].body);
-
-const assets = await Promise.all(
-	parsedImgs.matches.map(async (match) => {
-		const res = await getContent(env.GITHUB_PAT, `Works/assets/${match}`);
-		return res.download_url;
-	})
-);
-
-const md = markdownit();
-const content = md.render(path[0].body);
-
-const contentAfter = content
-	.replace(/<h1>(.*?)<\/h1>/g, (_, p1) => {
-		return `<h1 id="${formatSlug(p1)}">${p1}</h1>`;
-	})
-	.replace(/<h2>(.*?)<\/h2>/g, (_, p1) => {
-		return `<h2 id="${formatSlug(p1)}">${p1}</h2>`;
-	})
-	.replace(parsedImgs.regex, () => {
-		const asset = assets.shift();
-		return `<img src="${asset}" />`;
-	})
-	.replace(parsedLinks.regex, () => {
-		const link = parsedLinks.matches.shift();
-		const slug = formatSlug(link ?? "");
-
-		if (link?.startsWith("#")) {
-			return `<a href="#${slug}">${link.slice(1)}</a>`;
-		}
-
-		return `<a href="/${slug}" data-astro-prefetch>${link}</a>`;
-	});
-
-const title = path[0].title.replace(".md", "");
+const { Content } = await entry.render();
 ---
 
-<MainLayout title={`${title} | Drafts`}>
+<MainLayout
+	title={`${entry?.data.title} | Drafts`}
+	description={entry?.data.description}
+>
 	<div class="container mx-auto px-4 md:px-0 py-12">
 		<h1
 			class="text-4xl lg:text-5xl text-center font-heading font-bold text-balance"
 		>
-			{title}
+			{entry?.data.title}
 		</h1>
 		<p class="text-center dark:text-neutral-300 text-neutral-600 mb-16 mt-4">
 			{
-				new Date(path[0].created).toLocaleDateString("en-GB", {
+				new Date(entry?.data.publishedAt ?? "").toLocaleDateString("en-GB", {
 					month: "long",
 					year: "numeric",
 				})
 			}
 		</p>
 		<article
-			class="prose mx-auto prose-neutral dark:prose-invert lg:prose-lg prose-img:mb-2 prose-img:mt-4 prose-img:rounded-lg prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-a:text-orange-500 prose-a:decoration-orange-400/25 hover:prose-a:decoration-orange-400 prose-a:decoration-wavy prose-a:underline-offset-4"
-			set:html={contentAfter}
-		/>
+			class="prose mx-auto prose-neutral dark:prose-invert lg:prose-lg prose-img:mb-2 prose-img:mt-4 prose-img:rounded-lg prose-h1:text-4xl prose-h2:text-3xl prose-h2:mb-6 prose-h3:text-2xl prose-a:text-orange-500 prose-a:decoration-orange-400/25 hover:prose-a:decoration-orange-400 prose-a:decoration-wavy prose-a:underline-offset-4"
+		>
+			<Content />
+		</article>
 	</div>
-
-	<script type="module">
-		import { codeToHtml } from "https://esm.sh/shiki@1.14.1";
-
-		const contentRef = document.querySelectorAll('code[class*="language-"]');
-		const targetRef = document.querySelectorAll("pre");
-
-		contentRef.forEach(async (code, idx) => {
-			const newElement = document.createElement("div");
-
-			newElement.innerHTML = await codeToHtml(code.innerText, {
-				lang: code.className.replace("language-", ""),
-				theme: "rose-pine",
-			});
-
-			newElement.classList.add(code.className);
-			targetRef[idx].replaceWith(newElement);
-		});
-	</script>
 </MainLayout>
