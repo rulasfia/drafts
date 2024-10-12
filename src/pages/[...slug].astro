@@ -34,13 +34,25 @@ const md = markdownit();
 const content = md.render(path[0].body);
 
 const contentAfter = content
+	.replace(/<h1>(.*?)<\/h1>/g, (_, p1) => {
+		return `<h1 id="${formatSlug(p1)}">${p1}</h1>`;
+	})
+	.replace(/<h2>(.*?)<\/h2>/g, (_, p1) => {
+		return `<h2 id="${formatSlug(p1)}">${p1}</h2>`;
+	})
 	.replace(parsedImgs.regex, () => {
 		const asset = assets.shift();
 		return `<img src="${asset}" />`;
 	})
 	.replace(parsedLinks.regex, () => {
 		const link = parsedLinks.matches.shift();
-		return `<a href="/${formatSlug(link ?? "")}" data-astro-prefetch>${link}</a>`;
+		const slug = formatSlug(link ?? "");
+
+		if (link?.startsWith("#")) {
+			return `<a href="#${slug}">${link.slice(1)}</a>`;
+		}
+
+		return `<a href="/${slug}" data-astro-prefetch>${link}</a>`;
 	});
 
 const title = path[0].title.replace(".md", "");
