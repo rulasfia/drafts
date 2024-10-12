@@ -17,7 +17,7 @@ export function parseImages(body: string) {
 }
 
 export function parseInternalLink(body: string) {
-	const startChar = "\\[\\["; // Escape the ![[ characters
+	const startChar = "\\[\\["; // Escape the [[ characters
 	const endChar = "\\]\\]"; // Escape the ]] characters
 
 	const regex = new RegExp(`${startChar}(.*?)${endChar}`, "g");
