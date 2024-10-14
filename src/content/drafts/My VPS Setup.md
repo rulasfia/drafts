@@ -3,6 +3,9 @@ title: My VPS Setup
 description: Personal production VPS setup
 published: true
 publishedAt: 2024-10-04
+tags:
+  - personal
+  - devops
 ---
 ## Create non-root user
 
@@ -66,6 +69,6 @@ sudo systemctl reload ssh
 For detailed instruction, follow steps-by-steps presented in the official documentation. If you use Ubuntu or other Debian based distro, you can see the instruction [here](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
 
 ## Others
-That's it for the standard steps. From this point onward, it should be project-specific setup. Like installing Node.js, running the container, etc.
+That's it for the standard steps. From this point onward, it should be project-specific setup. Like installing Node.js, running the container, etc. 
 
 Also, if you need a local Indonesia VPS for testing & learning, you can try [Nevacloud](https://nevacloud.com/?ref=rulasfia) (affiliate link) which offer a lot of server option in a competitive price. 
