@@ -50,4 +50,21 @@ const { Content } = await entry.render();
 			<Content />
 		</article>
 	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const article = document.querySelector("article");
+			const links =
+				article?.querySelectorAll<HTMLAnchorElement>('a[href^="http"]'); // Select links that start with 'http'
+			links?.forEach((link) => {
+				if (!link.href.includes(window.location.host)) {
+					link.classList.add("after:content-[url(/external.svg)]");
+					link.classList.add("dark:after:content-[url(/external-white.svg)]");
+					link.classList.add("after:align-middle");
+					link.classList.add("after:font-sm");
+					link.classList.add("after:ml-1");
+				}
+			});
+		});
+	</script>
 </MainLayout>
