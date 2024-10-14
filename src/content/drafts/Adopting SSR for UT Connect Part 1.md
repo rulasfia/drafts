@@ -29,16 +29,25 @@ On the other hand, In Client-Side Rendering (CSR), only the barebones HTML conta
 The primary downside to client-side rendering is that the amount of JavaScript required tends to grow as an application grows, which can impact a page's [INP](https://web.dev/articles/inp).
 ## Pros and Cons
 ### Pros
-1. **Good for SEO**: Search engine crawlers are easily able to crawl the content of an SSR application because it's already there in the HTML, thus ensuring higher search engine optimization on the page.
-2. **Good initial load performance**:  with impact on metric such as ([FCP](https://web.dev/articles/fcp) and [TTI](https://web.dev/articles/tti)). This happen because with SSR, only resource needed for specific page are loaded. Aside from that, because the content already embedded within the HTML, user don't need to wait for JavaScript to be executed to see the content of the page.
+- **Good for SEO**: Search engine crawlers are easily able to crawl the content of an SSR application because it's already there in the HTML, thus ensuring higher search engine optimization on the page.
+- **Good initial load performance**:  with impact on metric such as ([FCP](https://web.dev/articles/fcp) and [TTI](https://web.dev/articles/tti)). This happen because with SSR, only resource needed for specific page are loaded. Aside from that, because the content already embedded within the HTML, user don't need to wait for JavaScript to be executed to see the content of the page.
+- **Better Security**: Because the apps now have access to a server, it can be better and more precise at managing what data need to send to the client and what is not. 
 ### Cons
 - **Slow Time to First Byte**: ([TTFB](https://web.dev/articles/ttfb)) is a metric that measure time between user click enter on URL bar and the first data received by the user. This can be slow because every client send a request to the same sever, and the server need to response to each one of it. 
-- Network request to server on each navigation (can be slow)
+- **Network request on each navigation**: Because the server only response with the resource of the requested page, when client want to navigate to other page, they need to make request to the server first. This can feel slow, especially for apps that need a lot of navigation for interaction.
 ## Our Current Approach
-CSR with Create React App.
+Currently, our frontend consist of Client Side Rendering React app powered by [Create React App](https://create-react-app.dev/) (which is now deprecated).
 
 ## What's the Plan
-Migrate to SSR powered by Vite and React Router v7.
+Our initial plan was simply to migrate from a legacy Create React App and class-based React application to a more modern Vite setup, while also adopting newer React features like hooks and standardizing our development process. However, when SEO concerns arose and after several discussions, we decided to implement server-side rendering (SSR) in our project.
+
+In the ecosystem, there are several option to implement SSR with React. We can use modern framework that has this feature build in like [Next.js](https://nextjs.org/), [Remix](https://remix.run/), [TanStack Start](https://tanstack.com/start/latest) or even [Astro](https://astro.build/).
+
+We need to carefully choose our approach here. As this decision comes near the end of our refactor to a Vite-based app, we need to find an implementation that requires minimal code changes. Next.js and Astro would demand significant changes to our app's structure to fit their model, and TanStack Start is still in alpha at the time of writing. Considering these constraints, Remix stands out as our most viable option.
+
+Another consideration is that Remix is built on React Router (developed by the same team), which is the router we already use in our project. This alignment will facilitate an easier and quicker migration, as we can reuse much of our existing code with only minor adjustments.
+
+Not long ago, the Remix team announced that they will be [Merging Remix v3 with React Router v7](https://remix.run/blog/merging-remix-and-react-router). This mean we can simply upgrade to **React Router v7** from v6 and gain all the benefits of remix and it's SSR implementation. 
 
 ## References
 - https://web.dev/articles/rendering-on-the-web
