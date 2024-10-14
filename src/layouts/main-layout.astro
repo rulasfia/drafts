@@ -1,7 +1,7 @@
 ---
 import "../assets/styles.css";
 
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <html lang="en">
@@ -11,11 +11,37 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title ?? "Drafts | Khoirul Asfian"}</title>
+		<meta
+			name="description"
+			content={description ?? "Where I write about my thoughts"}
+		/>
 	</head>
 	<body
 		class="text-neutral-900 bg-neutral-50 font-sans antialiased dark:bg-neutral-800 dark:text-neutral-50"
 	>
-		<slot />
+		<main class="min-h-[calc(100vh-40px)]">
+			<slot />
+		</main>
+
+		<footer
+			class="h-10 border-t container mx-auto flex flex-row items-center justify-between px-4 border-t-neutral-200 dark:border-t-neutral-700 border-solid"
+		>
+			<span class="text-sm">by Khoirul Asfian</span>
+			<div
+				class="flex text-sm flex-row items-center gap-4 text-neutral-800 dark:text-neutral-200"
+			>
+				<a
+					href="https://github.com/rulasfia"
+					target="_blank"
+					class="hover:underline">Github</a
+				>
+				<a
+					href="https://twitter.com/rulasfia"
+					target="_blank"
+					class="hover:underline">Twitter</a
+				>
+			</div>
+		</footer>
 	</body>
 
 	<!-- Cloudflare Web Analytics -->
