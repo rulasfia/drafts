@@ -1,10 +1,12 @@
 ---
 title: MS Copilot Overview as Developer
 description: Overview of Microsoft Copilot from developer perspective
-published: false
+published: true
 publishedAt: 2024-08-18
+tags:
+  - work
+  - research
 ---
-
 ## The Gist
 Generative AI tool such as MS Copilot can improve developer productivity up to twice as fast on certain task related to code generation, refactoring, and documentation. However, they can become a hindrance for more complex tasks.
 
