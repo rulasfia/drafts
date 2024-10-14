@@ -11,10 +11,9 @@ tags:
 - [[#What is Server Side Rendering]]
 - [[#Comparison with CSR]]
 - [[#Pros and Cons]]
-- [[#About Hydration]]
 - [[#Our Current Approach]]
 - [[#What's the Plan]]
-- [[#Follow Up]]
+- [[#References]]
 ## What is Server Side Rendering
 Server-side rendering (SSR) is one of the oldest methods of rendering web content. SSR generates the full HTML for the page content to be rendered in response to a user request. 
 
