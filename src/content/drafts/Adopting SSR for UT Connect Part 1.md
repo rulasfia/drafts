@@ -46,7 +46,9 @@ We need to carefully choose our approach here. As this decision comes near the e
 
 Another consideration is that Remix is built on React Router (developed by the same team), which is the router we already use in our project. This alignment will facilitate an easier and quicker migration, as we can reuse much of our existing code with only minor adjustments.
 
-Not long ago, the Remix team announced that they will be [Merging Remix v3 with React Router v7](https://remix.run/blog/merging-remix-and-react-router). This mean we can simply upgrade to **React Router v7** from v6 and gain all the benefits of remix and it's SSR implementation. 
+Not long ago, the Remix team announced that they will be [Merging Remix v3 with React Router v7](https://remix.run/blog/merging-remix-and-react-router). This mean we can simply upgrade to React Router v7 when it's finally ready.
+
+So, our strategy right now is to migrate from **React Router v6 > Remix > React Router v7**. We need to migrate to remix first to get the SSR and all the included benefits with minimal changes. And then when React Router v7 (the next version of Remix) is ready, we will upgrade to that.  
 
 ## References
 - https://web.dev/articles/rendering-on-the-web
