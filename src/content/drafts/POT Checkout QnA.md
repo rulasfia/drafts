@@ -1,6 +1,6 @@
 ---
 title: POT Checkout QnA
-description: 
+description: ''
 tags:
   - work
 published: false
