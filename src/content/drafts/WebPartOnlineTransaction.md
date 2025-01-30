@@ -4,7 +4,7 @@ tags:
   - frontend
   - work
 title: Web POT Release Config
-description: 
+description: ''
 publishedAt: 2024-12-02
 ---
 ## Containerization
