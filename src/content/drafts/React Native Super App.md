@@ -7,6 +7,8 @@ tags:
   - mobile
 published: true
 publishedAt: 2025-01-30
+author:  
+  - ayyub-ainr
 ---
 # React Native Super App
 ## What is a Super App?
