@@ -1,5 +1,5 @@
 ---
-title: Adopting SSR for UT Connect (Part 1)
+title: Migration from CSR to SSR (Part 1)
 description: Current state and preparation
 published: true
 publishedAt: 2024-10-12
