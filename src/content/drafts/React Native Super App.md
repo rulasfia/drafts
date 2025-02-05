@@ -1,5 +1,5 @@
 ---
-title: UT Connect Super App
+title: React Native Super App
 description: Comparison between Expo Monorepo and Callstack/Repack
 tags:
   - frontend
@@ -7,10 +7,8 @@ tags:
   - mobile
 published: true
 publishedAt: 2025-01-30
-author:  
-  - ayyub-ainr
 ---
-# UT Connect Super App
+# React Native Super App
 ## What is a Super App?
 
 A **mobile super app** is a single mobile application that integrates a wide range of services and features, allowing users to perform multiple tasks within one ecosystem. Instead of using separate apps for different purposes, a super app combines various functionalities, making it a one-stop solution for users.
@@ -21,13 +19,13 @@ A **mobile super app** is a single mobile application that integrates a wide ran
 
 Our current setup consists of two separate applications:
 
-- **React Native CLI App** (for major UT Connect features)
-    - Order tracking
-    - Equipment monitoring
+- **React Native CLI App** (for major main features)
+    - Order
+    - Equipment
     - Ticketing
-    - Financing dashboard
+    - Financing
     - etc
-- **React Native Expo App** (for maintenance management)
+- **React Native Expo App** (for customer management)
     - Developed using Expo
     - Uses different libraries from the first app
 
@@ -116,7 +114,7 @@ Expo Router is a file-based routing system built on React Navigation. Using a **
 
 ### 📂 Project Structure
 ```
-mobile-utconnect/
+mobile-app/
 │── src/
 │   │── assets/
 │   │── hooks/
@@ -137,8 +135,8 @@ mobile-utconnect/
 super-app/
 │── packages/
 │   ├── app-shell/   # Core app shell (host)
-│   ├── order-tracking/   # Independent module (remote)
-│   ├── maintenance-management/   # Independent module (remote)
+│   ├── order-module/   # Independent module (remote)
+│   ├── customer-module/   # Independent module (remote)
 │── mobile/   # Main entry for mobile
 │── package.json
 │── babel.config.js
@@ -156,11 +154,13 @@ super-app/
 super-app/
 │── apps/
 │   ├── mobile/   # Main app
-│   ├── maintenance/   # Maintenance app (child app)
+│   ├── customer/   # Customer app (child app)
 │── packages/
 │   ├── ui/   # Shared UI components
 │   ├── services/   # Shared API and state management
-│   ├── features/   # Feature modules (e.g., order tracking)
+│   ├── features/   # Feature modules (e.g., order)
+│   │   ├── order/
+│   │   ├── equipment/
 │── package.json
 │── babel.config.js
 │── expo-router.config.js
