@@ -6,3 +6,5 @@ publishedAt: 2025-02-02
 tags:
   - personal
 ---
+
+## Why
