@@ -8,6 +8,7 @@ tags:
 author:
   - rulasfia
 published: true
+visibility: unlisted
 publishedAt: 2025-02-25
 ---
 Sitemap adalah sebuah file XML yang berisi daftar halaman dan konten penting dalam sebuah website. Tujuan utama dari sitemap adalah untuk membantu mesin pencari seperti Google, Bing, dan lainnya untuk memahami struktur sebuah website dengan lebih baik saat mereka melakukan *indexing* konten.

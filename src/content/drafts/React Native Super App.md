@@ -6,6 +6,7 @@ tags:
   - work
   - mobile
 published: true
+visibility: public
 publishedAt: 2025-01-30
 author:  
   - ayyub-ainr

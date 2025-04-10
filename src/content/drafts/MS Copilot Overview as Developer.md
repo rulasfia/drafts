@@ -2,6 +2,7 @@
 title: MS Copilot Overview as Developer
 description: Overview of Microsoft Copilot from developer perspective
 published: true
+visibility: unlisted
 publishedAt: 2024-08-18
 tags:
   - work

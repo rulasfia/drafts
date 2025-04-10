@@ -5,8 +5,9 @@ const drafts = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     tags: z.string().array().optional().default([]),
-    published: z.boolean(),
-    publishedAt: z.date(),
+    published: z.boolean().optional().default(false),
+    visibility: z.enum(["public", "unlisted"]).optional().default("unlisted"),
+    publishedAt: z.date().optional().default(new Date()),
     author: z.string().array().optional().default(["rulasfia"]),
   }),
 });

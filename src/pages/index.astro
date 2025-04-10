@@ -2,11 +2,11 @@
 import MainLayout from "../layouts/main-layout.astro";
 import { getCollection } from "astro:content";
 
-const blogs = await getCollection("drafts", (entry) =>
-	import.meta.env.PROD ? entry.data.published : true
+const publicBlogs = await getCollection("drafts", (entry) =>
+	import.meta.env.PROD ? entry.data.published && entry.data.visibility === "public" : true
 );
 
-const sortedBlogs = blogs.sort(
+const sortedBlogs = publicBlogs.sort(
 	(a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
 );
 ---

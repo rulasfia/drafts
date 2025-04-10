@@ -2,6 +2,7 @@
 title: My VPS Setup
 description: Personal production VPS setup
 published: true
+visibility: public
 publishedAt: 2024-10-04
 tags:
   - personal

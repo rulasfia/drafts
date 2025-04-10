@@ -2,6 +2,7 @@
 title: Migration from CSR to SSR (Part 1)
 description: Current state and preparation
 published: true
+visibility: public
 publishedAt: 2024-10-12
 tags:
   - work
